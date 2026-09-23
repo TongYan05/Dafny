@@ -1,4 +1,4 @@
-include "../core-list.dfy"
+datatype list<T> = Nil | Cons (hd:T, tl:list<T>)
 
 function max(i : int, j : int) : int { if i < j then j else i}
 
@@ -27,7 +27,7 @@ lemma maxA_thm(l:list<int>, A:int)
   // make the first parameter the one that is first in the 
   // definition of the recursive function and/or use the 
   // same decreases clause
-  ensures maxA(l,A) == ???
+  ensures maxA(l,A) == if l.Nil? then A else max(A,maxList2(l))//maxList has the requires
 {
 }
 
@@ -35,4 +35,8 @@ lemma finishing_up(l : list<int>)
   requires l.Cons?
   ensures maxList(l) == maxList2(l)
 {
+  match l case Nil => {}
+  case Cons(h,t) => {
+    maxA_thm(t,h);//because h is like A, fuck that is too hard!!
+  }
 }

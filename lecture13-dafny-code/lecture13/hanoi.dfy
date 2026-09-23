@@ -18,6 +18,9 @@ function hanoi2(n : nat, a : nat) : nat
 
 lemma hanoi12(n : nat)
   ensures hanoi1(n) == hanoi2(n, 0)
+  {
+    
+  }
 
 // the accumulator moves in the recursive call, so pinning it at 0 leaves us
 // with a useless inductive hypothesis.  Let it vary instead, and guess the

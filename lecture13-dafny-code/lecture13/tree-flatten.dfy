@@ -1,4 +1,9 @@
-include "../core-list.dfy"
+datatype list<T> = Nil | Cons (hd:T, tl:list<T>)
+function append<T>(l1:list<T>, l2:list<T>) : list<T>
+{
+    match l1 case Nil => l2
+    case Cons(h,t) => Cons(h, append(t,l2))
+}
 
 datatype tree<V> = Lf | Node (k:int, v:V, tree<V>, tree<V>)
 

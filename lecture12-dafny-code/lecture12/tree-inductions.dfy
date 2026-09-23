@@ -67,6 +67,17 @@ lemma {:induction false} size_mirror<V>(t:tree<V>)
     }
   }
 
+lemma {:induction false} test2<V>(t:tree<V>)
+  ensures length(keys(t)) == size(t) 
+  {
+    match t case Lf => {}
+    case Node(k,v,l,r) => {
+        test2(l);
+        test2(r);
+        // assert keys(t) == append(keys(l), Cons(k, keys(r)));
+        length_append(keys(l),Cons(k, keys(r)));
+    }
+  }
 
 lemma {:induction false} length_keys<V>(t:tree<V>)
   ensures length(keys(t)) == size(t) 
@@ -88,3 +99,31 @@ lemma {:induction false} length_keys<V>(t:tree<V>)
         }
     }
 }
+lemma test5<V>(l1:list<V>)
+    ensures append(l1,Nil) == l1
+    {}
+
+lemma test4<V>(l1:list<V>,l2:list<V>)
+    ensures reverse(append(l1,l2)) == append(reverse(l2),reverse(l1))
+    {
+        match l1 case Nil => {
+            assert append(Nil,l2) == l2;
+            assert append(reverse(l2),Nil) == reverse(l2) by {test5(reverse(l2));}
+        }
+        case Cons(h,t) => {
+            
+        }
+    }
+
+
+lemma {:induction false} test3<V>(t:tree<V>)
+  ensures reverse(keys(t)) == keys(mirror(t))
+  {
+    match t case Lf => {}
+    case Node(k,v,l,r) => {
+        test3(l);
+        test3(r);
+        assert keys(t) == append(keys(l), Cons(k, keys(r)));
+        assert mirror(t) == Node(k,v,mirror(r), mirror(l));
+    }
+  } 
