@@ -2,7 +2,7 @@
    Ported from COMP1600 2025, week11-code.dfy (nt, ff). */
 
 method nt()
-  decreases *
+  decreases * // tell dafny that is ok that this loop is infinite.
   ensures false          // <-- and this VERIFIES
 {
   var x, y := 0, 2;

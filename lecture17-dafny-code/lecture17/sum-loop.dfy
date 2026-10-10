@@ -16,7 +16,8 @@ method sum_loop(lo: int, hi: int) returns (s: int)
   var l, h := lo, hi;
   s := 0;
   while (l < h)
-    invariant true
+    invariant s == sum(lo,hi) - sum(l,hi)
+    // invariant s == sum(lo,l)
   {
     s := f(l) + s;
     l := l + 1;
@@ -33,11 +34,16 @@ method sum_loop2(lo: int, hi: int) returns (s: int)
   s := 0;
   if lo >= hi { return s; }
   while (l < h)
-    invariant s == sum(lo, l)
+    
+    invariant s == sum(lo, l)//this is my mistake haha
     invariant l <= h
   {
     s := f(l) + s;
+    sum_add(lo,l);
+    assert s == sum(lo,l) + f(l);
+    assert s == sum(lo,l + 1 ) by {sum_add(lo,l+1);}
     l := l + 1;
+    
   }
 }
 

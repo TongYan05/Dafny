@@ -7,14 +7,15 @@
    Turn 16 * 12 == 8 * 24 == 4 * 48 == 2 * 96 == 1 * 192
 */
 method halve_bad(m: int, n: int) returns (a: int, b: int)
+  requires  m >= 0
   ensures a * b == m * n
-  decreases *
 {
   if m == 0 || n == 0 { return 0,0; }
   a, b := m, n;
   while (a % 2 == 0)
     invariant a * b == m * n
-    decreases *  // the cheating version of the code
+    invariant a >= 0
+    decreases a
   { a := a / 2; b := b * 2; }
 }
 

@@ -5,10 +5,14 @@
    Strategy: mirror the opponent so that three go each round. */
 
 method coingame(ncoins: int) returns (win: bool)
-  requires ncoins > 1  ensures win
+  requires ncoins > 1  
+  requires ncoins % 3 == 1
+  ensures win
 {
   var n  := ncoins;
   while (n > 1)
+  invariant n >= 1
+  invariant (ncoins - n) % 3 == 0
   {
     var i :| 1 <= i <= 2; // <--  i  is opponent move
     n := n - i;
