@@ -11,8 +11,8 @@ method coingame(ncoins: int) returns (win: bool)
 {
   var n  := ncoins;
   while (n > 1)
-  invariant n >= 1
   invariant (ncoins - n) % 3 == 0
+  invariant n >= 0
   {
     var i :| 1 <= i <= 2; // <--  i  is opponent move
     n := n - i;

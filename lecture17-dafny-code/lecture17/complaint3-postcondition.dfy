@@ -16,7 +16,7 @@ method countUpBroken(n: nat) returns (x: nat)
 {
   x := 0;
   while (x < n)
-    invariant true
+    invariant x <= n
   { x := x + 1; }
 }
 
@@ -52,6 +52,7 @@ method multBroken(m: int, n: int) returns (r: int)
   r := 0;
   while (x < n)
     invariant x <= n
+    invariant r == m * x
   {
     x := x + 1;
     r := r + m;
@@ -92,11 +93,14 @@ method multFixed(m: int, n: int) returns (r: int)
 // Example 3
 // hint: how many times does the body run?
 method toFiftyBroken() returns (i: int)
-  ensures i == 51
+  // ensures i == 51
+  ensures i == 50
 {
   i := 0;
   while (i < 50)
-    invariant 0 <= i <= 51
+    // invariant 0 <= i <= 51
+    invariant 0 <= i <= 50
+
   { i := i + 1; }
 }
 

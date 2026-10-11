@@ -7,10 +7,11 @@ method multBroken(m: int, n: int) returns (r: int)
   ensures r == n * m
 {
   var x := 0;
-  r := m;
-  while (x < n)
+  // r := m;//we are trying to prove r == n * m!!!
+  r := 0;
+  while (x < n)// x=0,n>=0
     invariant x <= n
-    invariant r == x * m
+    invariant r == m * x
   {
     x := x + 1;
     r := r + m;
@@ -47,7 +48,7 @@ method countUpBroken(n: nat) returns (x: nat)
 {
   x := 0;
   while (x < n)
-    invariant x == n
+    invariant x <= n
   { x := x + 1; }
 }
 
