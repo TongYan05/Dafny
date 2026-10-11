@@ -14,9 +14,10 @@ lemma exceed_correct(i:int, j:int)
 method maxMethod(i:int, j:int) returns (mx:int)
   ensures mx == max(i,j)
 {
-    // if i < j { mx := j; } else { mx := i; }
-    if i < j {return j;}
-    return i;
+    // // if i < j { mx := j; } else { mx := i; }
+    // if i < j {return j;}
+    // return i;
+    mx := max(i,j);
 }
 
 // this doesn't work
@@ -25,10 +26,9 @@ lemma maxMethod_lemma(i:int, j:int)
 {}
 
 method exceedMethod(i:int, j:int) returns (exceeder:int)
-  // ensures exceeder > i 
-  // ensures exceeder > j
-  ensures exceeder == max(i,j) + 1 
+  ensures exceeder == exceed(i,j)
+  ensures exceeder == max(i,j) + 1
 {
-    var mx := maxMethod(i,j);
+    var mx := maxMethod(i,j);//dafny can only access the specification
     exceeder := mx + 1;
 }
