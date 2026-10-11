@@ -10,6 +10,9 @@ method find_max(f: int -> int, lo: int, hi: int) returns (max: int)
   max := lo;
   var i := lo;
   while (i < hi)
+  invariant i <= hi
+  invariant max <= i
+  invariant forall j :: lo <= j <= i ==> f(j) <= f(max)
   {
     i := i + 1;
     if f(i) > f(max) { max := i; }

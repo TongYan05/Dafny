@@ -12,6 +12,8 @@ method hanoi2loop(n0: nat) returns (a: nat)
   var n := n0;
   a := 0;
   while n != 0
+  invariant n >= 0
+  invariant hanoi2(n, a) == hanoi2(n0, 0)//one day n == 0 at that time a == hanoi2(n0, 0)
   {
     a := 2*a + 1;
     n := n - 1;

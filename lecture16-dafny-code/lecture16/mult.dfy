@@ -8,8 +8,8 @@ method mult(m: int, n: int) returns (r: int)
   var x: int;
   r, x := 0, 0;
   while (x < n)
-    invariant true     // counting
-    invariant true  // computing
+    invariant r == m * x     // counting
+    invariant x <= n  // computing
   {
     x := x + 1;
     r := r + m;

@@ -7,6 +7,8 @@ method anyZeroBelow(f: nat -> nat, n: nat) returns (found: bool)
   var x: nat := 0;
   found := false;
   while (x < n)
+  invariant x <= n
+  invariant found <==> exists i :: 0 <= i < x && f(i) == 0
   {
     if (f(x) == 0) { found := true; }
     x := x + 1;
