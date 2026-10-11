@@ -9,4 +9,11 @@ method factMthd(n:nat) returns (f:nat)
     var i := 0;
     f := 1;
     while i < n 
+        invariant i <= n
+        invariant f == factorial(i)
+    {
+        i := i + 1;
+        // f := f * i;
+        f := factorial(i);
+    }
 }

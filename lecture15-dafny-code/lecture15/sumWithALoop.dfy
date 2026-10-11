@@ -9,5 +9,6 @@ method sumMd(n:nat) returns (s:nat)
 {
     s := 0; 
     while s != sum(n)
-      invariant true 
+      invariant s <= sum(n) 
+      decreases sum(n) - s
 }
