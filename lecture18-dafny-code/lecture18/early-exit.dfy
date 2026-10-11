@@ -11,9 +11,9 @@ method findZero(n: nat) returns (found: bool)
   var i: nat := 0;
   found := false;
   while (i < n && !found)
-    decreases n - i
+    decreases n - i , !found
     invariant 0 <= i <= n
-    invariant found <==> exists j :: 0 <= j < n && f(j) == 0
+    invariant found <==> exists j :: 0 <= j < i && f(j) == 0// the correct version is adding break;
   {
     if f(i) == 0 { found := true; } else { i := i + 1; }
     // "early exit" via a found flag is a bit gross.
